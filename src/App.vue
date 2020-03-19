@@ -1,46 +1,19 @@
 <template>
   <div id="app">
     <Header/>
-    <AddTodo v-on:add-todo="addTodo"/>
-    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
     
+    <router-view/>
   </div>
 </template>
 
+
 <script>
 import Header from './components/layouts/Header.vue'
-import Todos from './components/Todos.vue'
-import AddTodo from './components/AddTodo.vue'
-import axios from 'axios';
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Todos,
-    AddTodo
-  },
-  data(){
-    return {
-      todos: []
-    }
-  },
-  methods:{
-    deleteTodo(id){
-      this.todos = this.todos.filter(todo => todo.id!=id)
-    },
-
-    addTodo(newTodo){
-      console.log(newTodo);
-      this.todos = [...this.todos, newTodo];
-    }
-  },
-
-  created(){
-    console.log('here');
-    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-    .then(res => this.todos = res.data)
-    .catch(err => console.log(err));
+    Header
   }
 }
 </script>
@@ -52,15 +25,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
-.btn{
-  display: inline-block;
-  border:none;
-  background:grey;
-  color: #fff;
-  padding: 7px 20px;
-  cursor: pointer;
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
